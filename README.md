@@ -6,4 +6,4 @@ The application is meant to cunsume the starting position of a chess piece and p
 To build the app run `sbt build`
 
 ## Run
-To run the app type `docker run -e START_POS="10,10" alekslitvinenk/chess-piece`
+To run the app type `docker run -p 80:8080 alekslitvinenk/chess-piece`
