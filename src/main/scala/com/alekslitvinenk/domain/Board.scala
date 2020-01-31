@@ -5,6 +5,11 @@ object Board {
   val FieldSize = 10
   
   /**
+   * List of possible moves on the board
+   */
+  val moves: List[Direction] = List(N, NE, E, SE, S, SW, W, NW)
+  
+  /**
    * Check if piece position is withing board
    * @param position - position to verify
    * @return Some(position) if given piece position is withing board and None otherwise

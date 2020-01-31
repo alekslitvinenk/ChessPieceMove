@@ -7,12 +7,6 @@ package com.alekslitvinenk.domain
  * @param visitedTiles - tiles that were already visited, if empty will be substituted with List(position)
  */
 case class Step(position: Position, visitedTiles: List[Position] = List.empty) {
-  
-  /**
-   * List of possible moves on the board
-   */
-  private val moves: List[Direction] = List(N, NE, E, SE, S, SW, W, NW)
-  
   /**
    * Sequence of tiles that were already visited when we reached current step
    */
@@ -25,7 +19,7 @@ case class Step(position: Position, visitedTiles: List[Position] = List.empty) {
    *
    * @return list of new steps which stem from the current
    */
-  def explode(): List[Step] = moves.flatMap(_.go(position)).flatMap { p =>
+  def explode(): List[Step] = Board.moves.flatMap(_.go(position)).flatMap { p =>
     if (updatedVisitedTiles.contains(p)) None
     else Some(Step(p, p :: updatedVisitedTiles))
   }
