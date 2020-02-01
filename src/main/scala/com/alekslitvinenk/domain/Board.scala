@@ -2,7 +2,7 @@ package com.alekslitvinenk.domain
 
 object Board {
   
-  val FieldSize = 10
+  val FieldSize = 5
   
   /**
    * List of possible moves on the board
