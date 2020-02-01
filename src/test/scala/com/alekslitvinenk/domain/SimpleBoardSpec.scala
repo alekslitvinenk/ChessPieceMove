@@ -32,5 +32,11 @@ class SimpleBoardSpec extends WordSpec with Matchers {
     
       verifiedPosition should be(None)
     }
+  
+    "produce correct list of positions when calling allTiles for board(2x2)" in {
+      val board = SimpleBoard(2)
+    
+      board.allTiles should be(List(Position(1, 1), Position(2, 1), Position(1, 2), Position(2, 2)))
+    }
   }
 }

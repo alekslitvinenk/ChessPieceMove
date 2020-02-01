@@ -1,12 +1,13 @@
 package com.alekslitvinenk.domain
 
+import scala.collection.immutable
 import scala.util.Random
 
 /**
  * Chess board abstraction
  * @param size
  */
-case class SimpleBoard(size: Int) {
+case class SimpleBoard(size: Int, topLeftCorner: Position = Position(1, 1)) {
   
   /**
    * Total tiles count on the given board
@@ -14,10 +15,18 @@ case class SimpleBoard(size: Int) {
   val tilesCount: Int = size * size
   
   /**
+   * List of all possible tiles with their coordinates for given board
+   */
+  val allTiles: List[Position] = (for {
+    i <- topLeftCorner.x until topLeftCorner.x + size
+    j <- topLeftCorner.y until  topLeftCorner.x + size
+  } yield Position(j, i)).toList
+  
+  /**
    * Moves a chess piece at given `from` position to a new position in specified `direction`
    * @param from position to move from
    * @param direction direction in which to move
-   * @return Some(position) if given piece position is withing board and None otherwise
+   * @return Some(position) if new piece position is withing board and None otherwise
    */
   def move(from: Position, direction: Direction): Option[Position] = verifyPosition(direction.go(from))
   
@@ -27,10 +36,10 @@ case class SimpleBoard(size: Int) {
    * @return Some(position) if given piece position is withing board and None otherwise
    */
   def verifyPosition(position: Position): Option[Position] =
-    if (position.x > 0 &&
-        position.x <= size &&
-        position.y > 0 &&
-        position.y <= size) Some(position)
+    if (position.x >= topLeftCorner.x &&
+        position.x < topLeftCorner.x + size &&
+        position.y >= topLeftCorner.y &&
+        position.y < topLeftCorner.y + size) Some(position)
     else None
 }
 
@@ -43,7 +52,7 @@ object SimpleBoard {
   
   /**
    * Get randomized list of moves. Useful if heuristic algorithms
-   * @return
+   * @return randomized list of moves
    */
   def randomizedMoves: List[Direction] = Random.shuffle(allMoves)
   
