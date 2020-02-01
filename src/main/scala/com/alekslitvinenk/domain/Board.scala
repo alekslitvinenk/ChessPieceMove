@@ -1,13 +1,15 @@
 package com.alekslitvinenk.domain
 
-object Board {
-  
-  val FieldSize = 5
+import scala.util.Random
+
+case class Board(size: Int) {
   
   /**
-   * List of possible moves on the board
+   * Total tiles count on the given board
    */
-  val moves: List[Direction] = List(N, NE, E, SE, S, SW, W, NW)
+  val tilesCount: Int = size * size
+  
+  def move(from: Position, direction: Direction): Option[Position] = verifyPosition(direction.go(from))
   
   /**
    * Check if piece position is withing board
@@ -16,10 +18,22 @@ object Board {
    */
   def verifyPosition(position: Position): Option[Position] =
     if (position.x > 0 &&
-        position.x <= FieldSize &&
+        position.x <= size &&
         position.y > 0 &&
-        position.y <= FieldSize) Some(position)
+        position.y <= size) Some(position)
     else None
+}
+
+object Board {
   
-  def size: Int = FieldSize * FieldSize
+  /**
+   * List of possible moves on the board
+   */
+  private val allMoves: List[Direction] = List(N, NE, E, SE, S, SW, W, NW)
+  
+  def moves(randomize: Boolean = false): List[Direction] =
+    if (randomize) Random.shuffle(allMoves)
+    else allMoves
+  
+  val moves: List[Direction] = allMoves
 }

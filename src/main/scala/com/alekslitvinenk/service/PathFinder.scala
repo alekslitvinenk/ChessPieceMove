@@ -1,38 +1,48 @@
 package com.alekslitvinenk.service
 
-import java.util.concurrent.Executors
-import java.util.concurrent.atomic.AtomicInteger
+import com.alekslitvinenk.domain.{Board, Step}
 
-import com.alekslitvinenk.domain.{Board, Position, Step}
+import scala.annotation.tailrec
+import scala.collection.mutable
 
-import scala.concurrent.{ExecutionContext, Future}
-
-class PathFinder {
-  
-  private val threadPool = Executors.newFixedThreadPool(35)
-  private implicit val ecFixed = ExecutionContext.fromExecutor(threadPool)
-  private val loopCounter = new AtomicInteger(0)
-  
-  def traverseAllTilesBreadthFirst(from: Position): Future[List[Step]] = {
-    
-    def loop(ls: List[Step]): Future[List[Step]] = {
-      println(s"Step: ${loopCounter.incrementAndGet()}")
-      if (ls.isEmpty || ls.par.exists(checkAllTilesTraversed)) Future.successful(ls)
-      else Future.reduceLeft(ls.map(futureExplode))(_ ++ _).flatMap(loop)
+class PathFinder(board: Board) {
+  /**
+   * Run depth-first algorithm to explore th board, pick the first
+   * next step in the list when few opportunities present
+   *
+   * @return Some(step) when the list of positions spanning across all tiles or None if there's no solution
+   */
+  @tailrec
+  final def traverseAllTilesDepthFirst(step: Step): Option[Step] = {
+    //println(step)
+    if (step.updatedVisitedTiles.size == board.tilesCount) {
+      Some(step)
+    } else {
+      if (step.availableMoves.isEmpty) {
+        if (step.previousStep.isEmpty) Option.empty[Step]
+        else {
+          //println(s"Returning to previous step $step")
+          traverseAllTilesDepthFirst(step.previousStep.get)
+        }
+      } else {
+        val direction = step.availableMoves.dequeue()
+        val nextPositionOpt = board.move(from = step.position, direction = direction)
+        
+        if (nextPositionOpt.isEmpty) {
+          traverseAllTilesDepthFirst(step)
+        } else {
+          val nextPosition = nextPositionOpt.get
+          if (step.updatedVisitedTiles.contains(nextPosition)) {
+            traverseAllTilesDepthFirst(step)
+          } else {
+            traverseAllTilesDepthFirst(Step(nextPosition, nextPosition :: step.updatedVisitedTiles, mutable.Queue(Board.moves: _*), Some(step)))
+          }
+        }
+      }
     }
-  
-    def futureExplode(step: Step) = Future { step.explode() }
-    
-    val initialStep: List[Step] = Board.verifyPosition(from).map(Step(_)).toList
-    loop(initialStep)
   }
-  
-  def traverseAllTilesDepthFirst(from: Position): Future[Option[Step]] = ???
-  
-  private def checkAllTilesTraversed(step: Step): Boolean =
-    step.updatedVisitedTiles.size == Board.size
 }
 
 object PathFinder {
-  def apply(): PathFinder = new PathFinder()
+  def apply(board: Board): PathFinder = new PathFinder(board)
 }

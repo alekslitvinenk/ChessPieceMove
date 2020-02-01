@@ -5,22 +5,30 @@ import org.scalatest.{Matchers, WordSpec}
 class BoardSpec extends WordSpec with Matchers {
   
   "Board" should {
-    "produce correct size" in {
-      val size = Board.size
+    "produce correct tilesCont when board size is 5" in {
+      val board = Board(5)
       
-      size should be(100)
+      board.tilesCount should be(25)
     }
   
-    "produce Some(position) when position withing board" in {
+    "produce correct tilesCont when board size is 10" in {
+      val board = Board(10)
+    
+      board.tilesCount should be(100)
+    }
+  
+    "produce Some(position) when verifying position withing board(5x5)" in {
+      val board = Board(5)
       val position = Position(1, 1)
-      val verifiedPosition = Board.verifyPosition(position)
+      val verifiedPosition = board.verifyPosition(position)
       
       verifiedPosition should be(Some(Position(1, 1)))
     }
   
-    "produce None when position beyond board" in {
+    "produce None when verifying position beyond board(5x5)" in {
+      val board = Board(5)
       val position = Position(-1, -1)
-      val verifiedPosition = Board.verifyPosition(position)
+      val verifiedPosition = board.verifyPosition(position)
     
       verifiedPosition should be(None)
     }
