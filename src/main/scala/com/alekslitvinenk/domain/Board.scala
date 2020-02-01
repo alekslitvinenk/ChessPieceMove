@@ -2,6 +2,10 @@ package com.alekslitvinenk.domain
 
 import scala.util.Random
 
+/**
+ * Chess board abstraction
+ * @param size
+ */
 case class Board(size: Int) {
   
   /**
@@ -9,6 +13,12 @@ case class Board(size: Int) {
    */
   val tilesCount: Int = size * size
   
+  /**
+   * Moves a chess piece at given `from` position to a new position in specified `direction`
+   * @param from position to move from
+   * @param direction direction in which to move
+   * @return Some(position) if given piece position is withing board and None otherwise
+   */
   def move(from: Position, direction: Direction): Option[Position] = verifyPosition(direction.go(from))
   
   /**
@@ -31,9 +41,14 @@ object Board {
    */
   private val allMoves: List[Direction] = List(N, NE, E, SE, S, SW, W, NW)
   
-  def moves(randomize: Boolean = false): List[Direction] =
-    if (randomize) Random.shuffle(allMoves)
-    else allMoves
+  /**
+   * Get randomized list of moves. Useful if heuristic algorithms
+   * @return
+   */
+  def randomizedMoves: List[Direction] = Random.shuffle(allMoves)
   
+  /**
+   * List of moves in clock wise direction starting from N(North)
+   */
   val moves: List[Direction] = allMoves
 }

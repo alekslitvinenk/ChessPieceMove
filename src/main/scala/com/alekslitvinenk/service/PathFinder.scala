@@ -3,7 +3,6 @@ package com.alekslitvinenk.service
 import com.alekslitvinenk.domain.{Board, Step}
 
 import scala.annotation.tailrec
-import scala.collection.mutable
 
 class PathFinder(board: Board) {
   /**
@@ -18,14 +17,15 @@ class PathFinder(board: Board) {
     if (step.updatedVisitedTiles.size == board.tilesCount) {
       Some(step)
     } else {
-      if (step.availableMoves.isEmpty) {
+      val nextMoveOpt = step.nextMove
+      if (nextMoveOpt.isEmpty) {
         if (step.previousStep.isEmpty) Option.empty[Step]
         else {
           //println(s"Returning to previous step $step")
           traverseAllTilesDepthFirst(step.previousStep.get)
         }
       } else {
-        val direction = step.availableMoves.dequeue()
+        val direction = nextMoveOpt.get
         val nextPositionOpt = board.move(from = step.position, direction = direction)
         
         if (nextPositionOpt.isEmpty) {
@@ -35,7 +35,7 @@ class PathFinder(board: Board) {
           if (step.updatedVisitedTiles.contains(nextPosition)) {
             traverseAllTilesDepthFirst(step)
           } else {
-            traverseAllTilesDepthFirst(Step(nextPosition, nextPosition :: step.updatedVisitedTiles, mutable.Queue(Board.moves: _*), Some(step)))
+            traverseAllTilesDepthFirst(Step(nextPosition, nextPosition :: step.updatedVisitedTiles, Some(step)))
           }
         }
       }

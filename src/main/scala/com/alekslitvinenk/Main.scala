@@ -6,8 +6,11 @@ import com.alekslitvinenk.service.PathFinder
 object Main extends App {
   val pathFinder = PathFinder(Board(5))
   
-  val step = Step(Position(1, 1))
-  val rez = pathFinder.traverseAllTilesDepthFirst(step)
+  val startPosition = Step(Position(3, 3))
+  
+  val startTime = System.currentTimeMillis()
+  val rez = pathFinder.traverseAllTilesDepthFirst(startPosition)
+  println(s"Time: ${System.currentTimeMillis() - startTime}")
   
   println(rez)
 }
