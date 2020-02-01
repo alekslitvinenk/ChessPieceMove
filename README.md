@@ -6,7 +6,7 @@ The application is meant to cunsume the starting position of a chess piece and p
 To build the app run `sbt build`
 
 ## Run
-1. To run the app type `docker run -p 80:8080 alekslitvinenk/chess-piece`
+1. To run the app type `docker run -p 80:8080 alekslitvinenk/chess-piece-move`
 2. Go to `localhost`
 3. Type in the form chess piece starting position
 4. Hit "Run" button
