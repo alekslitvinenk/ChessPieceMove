@@ -6,7 +6,7 @@ import scala.util.Random
  * Chess board abstraction
  * @param size
  */
-case class Board(size: Int) {
+case class SimpleBoard(size: Int) {
   
   /**
    * Total tiles count on the given board
@@ -34,7 +34,7 @@ case class Board(size: Int) {
     else None
 }
 
-object Board {
+object SimpleBoard {
   
   /**
    * List of possible moves on the board

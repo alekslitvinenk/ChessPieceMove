@@ -1,10 +1,10 @@
 package com.alekslitvinenk.service
 
-import com.alekslitvinenk.domain.{Board, Step}
+import com.alekslitvinenk.domain.{SimpleBoard, Step}
 
 import scala.annotation.tailrec
 
-class PathFinder(board: Board) {
+class PathFinder(board: SimpleBoard) {
   /**
    * Run depth-first algorithm to explore th board, pick the first
    * next step in the list when few opportunities present
@@ -44,5 +44,5 @@ class PathFinder(board: Board) {
 }
 
 object PathFinder {
-  def apply(board: Board): PathFinder = new PathFinder(board)
+  def apply(board: SimpleBoard): PathFinder = new PathFinder(board)
 }

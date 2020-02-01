@@ -14,9 +14,9 @@ case class Step(position: Position,
                 previousStep: Option[Step] = None) {
   
   /**
-   * List of available moves
+   * List of randomized available moves
    */
-  private val availableMoves: mutable.Queue[Direction] = mutable.Queue(Board.randomizedMoves: _*)
+  private val availableMoves: mutable.Queue[Direction] = mutable.Queue(SimpleBoard.randomizedMoves: _*)
   
   /**
    * Get next available move
