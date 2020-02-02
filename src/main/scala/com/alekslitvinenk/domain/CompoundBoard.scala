@@ -14,5 +14,5 @@ case class CompoundBoard(componentSize: Int) extends Board {
   
   def getQuarterByPosition(position: Position): Quarter = allQuarters.find { quarter =>
     quarter.board.allTiles.contains(position)
-  }.getOrElse(throw new RuntimeException("Quarter that hold given position not found"))
+  }.getOrElse(throw new RuntimeException(s"Quarter that hold given position $position not found"))
 }

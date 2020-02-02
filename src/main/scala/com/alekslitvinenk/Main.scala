@@ -5,8 +5,8 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
-import com.alekslitvinenk.domain.client.Protocol.PathResponse
-import com.alekslitvinenk.domain.client.ProtocolFormat.{JsonSupport, _}
+import com.alekslitvinenk.domain.http.Protocol.PathResponse
+import com.alekslitvinenk.domain.http.ProtocolFormat.{JsonSupport, _}
 import com.alekslitvinenk.domain.{CompoundBoard, Position, Step}
 import com.alekslitvinenk.service.CompoundBoardPathFinder
 

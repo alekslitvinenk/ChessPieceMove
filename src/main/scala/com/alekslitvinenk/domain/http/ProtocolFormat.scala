@@ -1,8 +1,8 @@
-package com.alekslitvinenk.domain.client
+package com.alekslitvinenk.domain.http
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.alekslitvinenk.domain.Position
-import com.alekslitvinenk.domain.client.Protocol.{PathResponse, Pos}
+import com.alekslitvinenk.domain.http.Protocol.{PathResponse, Pos}
 import spray.json.DefaultJsonProtocol
 
 object ProtocolFormat {

@@ -1,4 +1,4 @@
-package com.alekslitvinenk.domain.client
+package com.alekslitvinenk.domain.http
 
 object Protocol {
   

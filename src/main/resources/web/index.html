@@ -1,38 +1,233 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-  <title>IMDb-searcher</title>
+  <title>Path Finder</title>
   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
   <script type="text/javascript" src="js/actions.js"></script>
+  <style type="text/css">
+    table {
+      border: 1px solid black;
+    }
+
+    td {
+      border: 1px solid black;
+    }
+
+    tr td div {
+      width: 35px;
+      height: 35px;
+      background-color: antiquewhite;
+    }
+
+    .visited {
+      background-color: black;
+    }
+  </style>
+
+  <script type="application/javascript">
+    var timerRef;
+
+    function findPath() {
+      console.log("findPath call");
+      clearInterval(timerRef);
+
+      for (var i = 1; i <= 100; i++) {
+        for (var j = 1; j <= 100; j++) {
+          $("#cell_" + i + "_" + j).removeClass("visited");
+        }
+      }
+
+      var x = $("#xpos").val();
+      var y = $("#ypos").val();
+
+      $.ajax({
+        type: 'GET',
+        dataType:'json',
+        url: 'path',
+        data: 'x=' + x + '&y=' + y,
+        success: function (response) {
+          timerRef = setInterval(function () {
+            var pos = response.items.shift();
+
+            if (typeof pos !== 'undefined') {
+              $("#cell_" + pos.y + "_" + pos.x).addClass("visited");
+            } else {
+              clearInterval(timerRef);
+            }
+          }, 500);
+
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+  </script>
 </head>
 <body>
-<h1>IMDb-searcher</h1>
+<h1>Path Finder</h1>
 
-<div>console:</div>
-<div id="console" style="border-style:solid; border-width:1px; min-height: 3em; overflow: auto; max-height: 10em"></div>
+<div id="chessBoard">
+  <table id="vertical-1">
+    <tr>
+      <th>Y/X</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+    </tr>
 
-<div id="safeSessions" style="overflow: auto; min-height: 25em">
-  Find Movie by its title:
-  <br/><br/>
-  <label for="primaryTitleField">Primary title: </label><input type="text" id='primaryTitleField'/>
-  <button id="searchByTitleBtn" onclick="searchByTitleAction()">Search</button>
-  <hr/>
-  Get the list of 10 top rated movies for the specified genre:
-  <br/><br/>
-  <label for="genreField">Genre: </label><input type="text" id='genreField'/>
-  <button id="searchByGenreBtn" onclick="searchByGenreAction()">Search</button>
+    <tr>
+      <th>1</th>
+      <td><div id="cell_1_1"></div></td>
+      <td><div id="cell_1_2"></div></td>
+      <td><div id="cell_1_3"></div></td>
+      <td><div id="cell_1_4"></div></td>
+      <td><div id="cell_1_5"></div></td>
+      <td><div id="cell_1_6"></div></td>
+      <td><div id="cell_1_7"></div></td>
+      <td><div id="cell_1_8"></div></td>
+      <td><div id="cell_1_9"></div></td>
+      <td><div id="cell_1_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>2</th>
+      <td><div id="cell_2_1"></div></td>
+      <td><div id="cell_2_2"></div></td>
+      <td><div id="cell_2_3"></div></td>
+      <td><div id="cell_2_4"></div></td>
+      <td><div id="cell_2_5"></div></td>
+      <td><div id="cell_2_6"></div></td>
+      <td><div id="cell_2_7"></div></td>
+      <td><div id="cell_2_8"></div></td>
+      <td><div id="cell_2_9"></div></td>
+      <td><div id="cell_2_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>3</th>
+      <td><div id="cell_3_1"></div></td>
+      <td><div id="cell_3_2"></div></td>
+      <td><div id="cell_3_3"></div></td>
+      <td><div id="cell_3_4"></div></td>
+      <td><div id="cell_3_5"></div></td>
+      <td><div id="cell_3_6"></div></td>
+      <td><div id="cell_3_7"></div></td>
+      <td><div id="cell_3_8"></div></td>
+      <td><div id="cell_3_9"></div></td>
+      <td><div id="cell_3_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>4</th>
+      <td><div id="cell_4_1"></div></td>
+      <td><div id="cell_4_2"></div></td>
+      <td><div id="cell_4_3"></div></td>
+      <td><div id="cell_4_4"></div></td>
+      <td><div id="cell_4_5"></div></td>
+      <td><div id="cell_4_6"></div></td>
+      <td><div id="cell_4_7"></div></td>
+      <td><div id="cell_4_8"></div></td>
+      <td><div id="cell_4_9"></div></td>
+      <td><div id="cell_4_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>5</th>
+      <td><div id="cell_5_1"></div></td>
+      <td><div id="cell_5_2"></div></td>
+      <td><div id="cell_5_3"></div></td>
+      <td><div id="cell_5_4"></div></td>
+      <td><div id="cell_5_5"></div></td>
+      <td><div id="cell_5_6"></div></td>
+      <td><div id="cell_5_7"></div></td>
+      <td><div id="cell_5_8"></div></td>
+      <td><div id="cell_5_9"></div></td>
+      <td><div id="cell_5_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>6</th>
+      <td><div id="cell_6_1"></div></td>
+      <td><div id="cell_6_2"></div></td>
+      <td><div id="cell_6_3"></div></td>
+      <td><div id="cell_6_4"></div></td>
+      <td><div id="cell_6_5"></div></td>
+      <td><div id="cell_6_6"></div></td>
+      <td><div id="cell_6_7"></div></td>
+      <td><div id="cell_6_8"></div></td>
+      <td><div id="cell_6_9"></div></td>
+      <td><div id="cell_6_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>7</th>
+      <td><div id="cell_7_1"></div></td>
+      <td><div id="cell_7_2"></div></td>
+      <td><div id="cell_7_3"></div></td>
+      <td><div id="cell_7_4"></div></td>
+      <td><div id="cell_7_5"></div></td>
+      <td><div id="cell_7_6"></div></td>
+      <td><div id="cell_7_7"></div></td>
+      <td><div id="cell_7_8"></div></td>
+      <td><div id="cell_7_9"></div></td>
+      <td><div id="cell_7_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>8</th>
+      <td><div id="cell_8_1"></div></td>
+      <td><div id="cell_8_2"></div></td>
+      <td><div id="cell_8_3"></div></td>
+      <td><div id="cell_8_4"></div></td>
+      <td><div id="cell_8_5"></div></td>
+      <td><div id="cell_8_6"></div></td>
+      <td><div id="cell_8_7"></div></td>
+      <td><div id="cell_8_8"></div></td>
+      <td><div id="cell_8_9"></div></td>
+      <td><div id="cell_8_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>9</th>
+      <td><div id="cell_9_1"></div></td>
+      <td><div id="cell_9_2"></div></td>
+      <td><div id="cell_9_3"></div></td>
+      <td><div id="cell_9_4"></div></td>
+      <td><div id="cell_9_5"></div></td>
+      <td><div id="cell_9_6"></div></td>
+      <td><div id="cell_9_7"></div></td>
+      <td><div id="cell_9_8"></div></td>
+      <td><div id="cell_9_9"></div></td>
+      <td><div id="cell_9_10"></div></td>
+    </tr>
+
+    <tr>
+      <th>10</th>
+      <td><div id="cell_10_1"></div></td>
+      <td><div id="cell_10_2"></div></td>
+      <td><div id="cell_10_3"></div></td>
+      <td><div id="cell_10_4"></div></td>
+      <td><div id="cell_10_5"></div></td>
+      <td><div id="cell_10_6"></div></td>
+      <td><div id="cell_10_7"></div></td>
+      <td><div id="cell_10_8"></div></td>
+      <td><div id="cell_10_9"></div></td>
+      <td><div id="cell_10_10"></div></td>
+    </tr>
+  </table>
   <br/>
-  <br/>
-  <hr/>
-  Find the degrres of separation between Kevin Bacon and any Given person (0 means no connection detected):
-  <br/><br/>
-  <label for="personNameField">Person: </label><input type="text" id='personNameField'/>
-  <button id="searchByPerson" onclick="searchByPerson()">Search</button>
-  <br/>
-  <br/>
-  <hr/>
-  <div id="results"></div>
+  <label for="xpos">X: </label><input type="text" id='xpos'/>
+  <label for="ypos">Y: </label><input type="text" id='ypos'/>
+  <button id="find" onclick="findPath()">Find and Play</button>
 </div>
 
 </body>
