@@ -31,7 +31,7 @@ class CompoundBoardPathFinder(board: CompoundBoard) {
   }
   
   @tailrec
-  final def findRouteWithTransitionQuarterToQuarter(position: Position, from: Quarter, to: Quarter): (Position, List[Position]) = {
+  private def findRouteWithTransitionQuarterToQuarter(position: Position, from: Quarter, to: Quarter): (Position, List[Position]) = {
     val simpleBoardPathFinder = SimpleBoardPathFinder(from.board)
     
     val firstStep = from.board.verifyPosition(position)

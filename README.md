@@ -9,7 +9,7 @@ To run unit tests type `sbt test`
 To build the app run `./build.sh`
 
 ## Run
-1. To run the app type `docker run -p 80:8080 alekslitvinenk/chess-piece-move`
+1. To run the app type `docker run -p 8080:8080 alekslitvinenk/chess-piece-move`
 2. Go to `localhost`
 3. Type in the form chess piece starting position
 4. Hit "Run" button
