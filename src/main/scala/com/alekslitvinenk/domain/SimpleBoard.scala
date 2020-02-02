@@ -1,13 +1,12 @@
 package com.alekslitvinenk.domain
 
-import scala.collection.immutable
 import scala.util.Random
 
 /**
  * Chess board abstraction
  * @param size
  */
-case class SimpleBoard(size: Int, topLeftCorner: Position = Position(1, 1)) {
+case class SimpleBoard(size: Int, topLeftCorner: Position = Position(1, 1)) extends Board {
   
   /**
    * Total tiles count on the given board
@@ -19,8 +18,8 @@ case class SimpleBoard(size: Int, topLeftCorner: Position = Position(1, 1)) {
    */
   val allTiles: List[Position] = (for {
     i <- topLeftCorner.x until topLeftCorner.x + size
-    j <- topLeftCorner.y until  topLeftCorner.x + size
-  } yield Position(j, i)).toList
+    j <- topLeftCorner.y until  topLeftCorner.y + size
+  } yield Position(i, j)).toList
   
   /**
    * Moves a chess piece at given `from` position to a new position in specified `direction`

@@ -17,7 +17,7 @@ class SimpleBoardPathFinderSpec extends WordSpec with Matchers {
       
       for {
         i <- 0 until 25
-      } yield visitedTiles.contains(allTiles(i))
+      } yield visitedTiles.contains(allTiles(i)) should be(true)
     }
   }
 }

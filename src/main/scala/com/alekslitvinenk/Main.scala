@@ -1,10 +1,10 @@
 package com.alekslitvinenk
 
-import com.alekslitvinenk.domain.{SimpleBoard, Position, Step}
-import com.alekslitvinenk.service.SimpleBoardPathFinder
+import com.alekslitvinenk.domain.{CompoundBoard, Position, Step}
+import com.alekslitvinenk.service.CompoundBoardPathFinder
 
 object Main extends App {
-  val pathFinder = SimpleBoardPathFinder(SimpleBoard(5))
+  val pathFinder = CompoundBoardPathFinder(CompoundBoard(5))
   
   val startPosition = Step(Position(3, 3))
   

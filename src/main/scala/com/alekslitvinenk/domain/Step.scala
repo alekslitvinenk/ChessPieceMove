@@ -19,6 +19,13 @@ case class Step(position: Position,
   private val availableMoves: mutable.Queue[Direction] = mutable.Queue(SimpleBoard.randomizedMoves: _*)
   
   /**
+   * Run breadth-first algorithm to explore the board
+   *
+   * @return list of new steps which stem from the current
+   */
+  def explode(): List[Position] = SimpleBoard.moves.map(_.go(position))
+  
+  /**
    * Get next available move
    * @return Some(move) if there still moves available and None otherwise
    */
