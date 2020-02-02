@@ -4,7 +4,7 @@ import com.alekslitvinenk.domain.{SimpleBoard, Step}
 
 import scala.annotation.tailrec
 
-class SimpleBoardPathFinder(board: SimpleBoard) extends PathFinder {
+class SimpleBoardPathFinder(board: SimpleBoard) {
   /**
    * Run depth-first algorithm to explore th board
    *
