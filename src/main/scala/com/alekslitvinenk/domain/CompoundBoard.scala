@@ -1,6 +1,6 @@
 package com.alekslitvinenk.domain
 
-case class CompoundBoard(componentSize: Int = 5) extends Board {
+case class CompoundBoard(componentSize: Int) extends Board {
   
   val quarterI:   Quarter = QuarterI(SimpleBoard(componentSize, Position(1, 1)))
   val quarterII:  Quarter = QuarterII(SimpleBoard(componentSize, Position(6, 1)))
