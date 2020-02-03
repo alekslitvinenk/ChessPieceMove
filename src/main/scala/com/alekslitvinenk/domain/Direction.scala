@@ -17,7 +17,6 @@ sealed trait Direction {
    * Transform given position to a new position denoted by subclass
    * @param position - position to transform
    * @return new position
-   * lies within board, otherwise - None
    */
   def go(position: Position): Position
 }
