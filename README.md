@@ -1,6 +1,6 @@
 # ChessPieceMove
 
-<p align=center><img src="https://alekslitvinenk.github.io/piece-moves/greed.png"></p><br>
+<p align=center><img src="https://alekslitvinenk.github.io/piece-moves/greed.png" width="400"></p><br>
 
 The application is meant to consume the starting position of a chess piece and produce the path by following which
 the piece will visit all the tiles on a board (10x10). App will render the produced path on a web page
