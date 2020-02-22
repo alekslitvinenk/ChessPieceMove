@@ -1,6 +1,6 @@
 lazy val root = (project in file("."))
   .settings(
-    name := "TrueCallerAssignment",
+    name := "Chess piece moves",
     version := "0.1",
     scalaVersion := "2.12.8",
     unmanagedResourceDirectories in Compile += { baseDirectory.value / "src/main/resources" },
