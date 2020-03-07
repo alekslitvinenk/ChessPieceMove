@@ -1,5 +1,4 @@
-# ♟ chess pawn
-Unicode: U+265F, UTF-8: E2 99 9FChessPieceMove
+# ♟ ChessPieceMove
 
 <p align=center><img src="https://alekslitvinenk.github.io/piece-moves/greed.png" width="400"></p><br>
 
